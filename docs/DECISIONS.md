@@ -667,3 +667,23 @@ production, preview, and development environments.
 - Node.js 22 matches the supported runtime for the installed Next.js version.
 - Keeping database and service credentials in environment variables prevents them
   from being committed to the repository.
+
+---
+
+## ADR-033: Production Admin Account Setup
+
+**Date:** 2026-11-05
+**Status:** Accepted
+
+**Context:** The production Supabase project required an explicitly allowlisted
+administrator account before protected admin routes and RLS policies could be used.
+
+**Decision:** Create the first administrator in Supabase Auth, add the user UUID to
+`admin_users`, confirm the account, and verify sign-in plus allowlist access.
+
+**Rationale:**
+
+- Supabase Auth requires an administrator account to be provisioned explicitly.
+- The `admin_users` UUID allowlist is the application's authorization source.
+- Admin passwords must be kept out of the repository and shared through a secure
+  channel.

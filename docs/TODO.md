@@ -200,7 +200,7 @@
   - **AC:** Production DB has all tables, RLS, and storage buckets
 - [ ] Verify production Lighthouse scores
   - **AC:** All four categories ≥ 90 on mobile
-- [ ] Create admin account and hand off to volunteers
+- [x] Create admin account and hand off to volunteers
   - **AC:** Volunteer can log in and post a test notice
 - [ ] Set up weekly `pg_dump` backup via GitHub Actions
   - **AC:** `.github/workflows/backup.yml` exists; runs weekly; artefact uploaded to private repo or storage
