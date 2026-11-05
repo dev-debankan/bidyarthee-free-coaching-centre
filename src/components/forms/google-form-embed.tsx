@@ -1,14 +1,13 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { getEmbeddableGoogleFormUrl } from '@/lib/forms/validation';
-import { Skeleton } from '@/components/ui/skeleton';
-import { Button } from '@/components/ui/button';
+import { useState } from "react";
+import { getEmbeddableGoogleFormUrl } from "@/lib/forms/validation";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface GoogleFormEmbedProps {
   googleFormUrl: string;
   title: string;
-  locale: 'bn' | 'en';
+  locale: "bn" | "en";
 }
 
 export function GoogleFormEmbed({
@@ -19,7 +18,7 @@ export function GoogleFormEmbed({
   const [isLoading, setIsLoading] = useState(true);
 
   const embedUrl = getEmbeddableGoogleFormUrl(googleFormUrl);
-  const isBn = locale === 'bn';
+  const isBn = locale === "bn";
 
   return (
     <div className="space-y-4">
@@ -27,8 +26,8 @@ export function GoogleFormEmbed({
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-surface-100 p-3.5 rounded-xl border border-surface-200">
         <span className="text-xs sm:text-sm text-surface-600 font-medium">
           {isBn
-            ? 'ফরম লোড হতে সমস্যা হলে নিচে বাটনটি ব্যবহার করুন:'
-            : 'Having trouble loading the form? Use the button below:'}
+            ? "ফরম লোড হতে সমস্যা হলে নিচে বাটনটি ব্যবহার করুন:"
+            : "Having trouble loading the form? Use the button below:"}
         </span>
         <a
           href={googleFormUrl}
@@ -37,7 +36,9 @@ export function GoogleFormEmbed({
           className="inline-flex items-center justify-center gap-1.5 px-4 py-2 text-xs sm:text-sm font-semibold text-primary-700 bg-white hover:bg-primary-50 border border-primary-200 rounded-lg shadow-xs transition-colors shrink-0"
         >
           <span>🔗</span>
-          <span>{isBn ? 'নতুন ট্যাবে খুলুন (Open in New Tab)' : 'Open in New Tab'}</span>
+          <span>
+            {isBn ? "নতুন ট্যাবে খুলুন (Open in New Tab)" : "Open in New Tab"}
+          </span>
         </a>
       </div>
 
@@ -68,15 +69,17 @@ export function GoogleFormEmbed({
         >
           <p className="p-4 text-center text-surface-600">
             {isBn
-              ? 'আপনার ব্রাউজারে আইফ্রেম সাপোর্ট নেই।'
-              : 'Your browser does not support iframes.'}{' '}
+              ? "আপনার ব্রাউজারে আইফ্রেম সাপোর্ট নেই।"
+              : "Your browser does not support iframes."}{" "}
             <a
               href={googleFormUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="text-accent-600 underline font-semibold"
             >
-              {isBn ? 'ফরমটি খুলতে এখানে ক্লিক করুন' : 'Click here to open form'}
+              {isBn
+                ? "ফরমটি খুলতে এখানে ক্লিক করুন"
+                : "Click here to open form"}
             </a>
           </p>
         </iframe>

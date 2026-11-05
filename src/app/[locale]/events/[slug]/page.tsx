@@ -1,18 +1,11 @@
-import React from 'react';
-import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { notFound } from 'next/navigation';
-import Image from 'next/image';
-import { getEventBySlug } from '@/lib/data/events';
-import { Container, Heading, Badge } from '@/components/ui';
-import { Link } from '@/i18n/routing';
-import {
-  Calendar,
-  Clock,
-  MapPin,
-  ArrowLeft,
-  ImageIcon,
-  Share2,
-} from 'lucide-react';
+import React from "react";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+import { notFound } from "next/navigation";
+import Image from "next/image";
+import { getEventBySlug } from "@/lib/data/events";
+import { Container, Heading, Badge } from "@/components/ui";
+import { Link } from "@/i18n/routing";
+import { Calendar, Clock, MapPin, ArrowLeft } from "lucide-react";
 
 export async function generateMetadata({
   params,
@@ -23,13 +16,13 @@ export async function generateMetadata({
   const event = await getEventBySlug(slug);
 
   if (!event) {
-    return { title: 'Event Not Found' };
+    return { title: "Event Not Found" };
   }
 
   const title =
-    locale === 'en' && event.title_en ? event.title_en : event.title_bn;
+    locale === "en" && event.title_en ? event.title_en : event.title_bn;
   const description =
-    locale === 'en' && event.description_en
+    locale === "en" && event.description_en
       ? event.description_en.slice(0, 160)
       : event.description_bn.slice(0, 160);
 
@@ -46,7 +39,7 @@ export default async function EventDetailPage({
 }) {
   const { locale, slug } = await params;
   setRequestLocale(locale);
-  const t = await getTranslations('events');
+  const t = await getTranslations("events");
 
   const event = await getEventBySlug(slug);
 
@@ -55,9 +48,9 @@ export default async function EventDetailPage({
   }
 
   const title =
-    locale === 'en' && event.title_en ? event.title_en : event.title_bn;
+    locale === "en" && event.title_en ? event.title_en : event.title_bn;
   const description =
-    locale === 'en' && event.description_en
+    locale === "en" && event.description_en
       ? event.description_en
       : event.description_bn;
 
@@ -92,7 +85,10 @@ export default async function EventDetailPage({
                 sizes="(max-width: 768px) 100vw, 800px"
               />
               <div className="absolute top-4 left-4">
-                <Badge variant="accent" className="shadow-md bg-white/90 backdrop-blur-sm text-accent-900 border border-accent-200 text-xs px-3 py-1">
+                <Badge
+                  variant="accent"
+                  className="shadow-md bg-white/90 backdrop-blur-sm text-accent-900 border border-accent-200 text-xs px-3 py-1"
+                >
                   {t(`categories.${event.category}` as any)}
                 </Badge>
               </div>
@@ -100,10 +96,16 @@ export default async function EventDetailPage({
           ) : (
             <div className="h-40 bg-gradient-to-r from-primary-500 to-amber-600 flex items-center justify-center p-6 text-white text-center">
               <div>
-                <Badge variant="accent" className="bg-white/20 text-white border-white/40 mb-2">
+                <Badge
+                  variant="accent"
+                  className="bg-white/20 text-white border-white/40 mb-2"
+                >
                   {t(`categories.${event.category}` as any)}
                 </Badge>
-                <Heading level={1} className="text-white text-xl sm:text-2xl font-bold">
+                <Heading
+                  level={1}
+                  className="text-white text-xl sm:text-2xl font-bold"
+                >
                   {title}
                 </Heading>
               </div>
@@ -115,8 +117,8 @@ export default async function EventDetailPage({
             {/* Header info */}
             <div className="space-y-4 border-b border-surface-200 pb-6">
               <div className="flex flex-wrap items-center gap-3">
-                <Badge variant={isPast ? 'default' : 'primary'}>
-                  {isPast ? 'Past Event' : 'Upcoming Event'}
+                <Badge variant={isPast ? "default" : "primary"}>
+                  {isPast ? "Past Event" : "Upcoming Event"}
                 </Badge>
 
                 <Badge variant="accent">
@@ -124,7 +126,10 @@ export default async function EventDetailPage({
                 </Badge>
               </div>
 
-              <Heading level={1} className="text-2xl sm:text-3xl font-extrabold text-surface-900 leading-tight">
+              <Heading
+                level={1}
+                className="text-2xl sm:text-3xl font-extrabold text-surface-900 leading-tight"
+              >
                 {title}
               </Heading>
 
@@ -136,17 +141,17 @@ export default async function EventDetailPage({
                   </div>
                   <div>
                     <div className="text-xs font-bold text-surface-500 uppercase">
-                      {t('dateLabel')}
+                      {t("dateLabel")}
                     </div>
                     <div className="font-semibold text-surface-900 mt-0.5">
                       {eventDate.toLocaleDateString(
-                        locale === 'bn' ? 'bn-IN' : 'en-US',
+                        locale === "bn" ? "bn-IN" : "en-US",
                         {
-                          weekday: 'short',
-                          year: 'numeric',
-                          month: 'long',
-                          day: 'numeric',
-                        }
+                          weekday: "short",
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                        },
                       )}
                     </div>
                   </div>
@@ -158,7 +163,7 @@ export default async function EventDetailPage({
                   </div>
                   <div>
                     <div className="text-xs font-bold text-surface-500 uppercase">
-                      {t('timeLabel')}
+                      {t("timeLabel")}
                     </div>
                     <div className="font-semibold text-surface-900 mt-0.5">
                       {event.time}
@@ -172,7 +177,7 @@ export default async function EventDetailPage({
                   </div>
                   <div>
                     <div className="text-xs font-bold text-surface-500 uppercase">
-                      {t('venueLabel')}
+                      {t("venueLabel")}
                     </div>
                     <div className="font-semibold text-surface-900 mt-0.5">
                       {event.location}

@@ -1,9 +1,9 @@
-import React from 'react';
-import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { notFound } from 'next/navigation';
-import { getNoticeBySlugOrId } from '@/lib/data/notices';
-import { Container, Heading, Badge, Button } from '@/components/ui';
-import { Link } from '@/i18n/routing';
+import React from "react";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+import { notFound } from "next/navigation";
+import { getNoticeBySlugOrId } from "@/lib/data/notices";
+import { Container, Heading, Badge } from "@/components/ui";
+import { Link } from "@/i18n/routing";
 import {
   Calendar,
   Pin,
@@ -11,10 +11,8 @@ import {
   Download,
   ExternalLink,
   ArrowLeft,
-  FileText,
-  FileCode,
   Upload,
-} from 'lucide-react';
+} from "lucide-react";
 
 export async function generateMetadata({
   params,
@@ -25,11 +23,11 @@ export async function generateMetadata({
   const notice = await getNoticeBySlugOrId(slug);
 
   if (!notice) {
-    return { title: 'Notice Not Found' };
+    return { title: "Notice Not Found" };
   }
 
   const title =
-    locale === 'en' && notice.title_en ? notice.title_en : notice.title_bn;
+    locale === "en" && notice.title_en ? notice.title_en : notice.title_bn;
 
   return {
     title: `${title} | Bidyarthi Free Coaching Centre`,
@@ -44,7 +42,7 @@ export default async function NoticeDetailPage({
 }) {
   const { locale, slug } = await params;
   setRequestLocale(locale);
-  const t = await getTranslations('notices');
+  const t = await getTranslations("notices");
 
   const notice = await getNoticeBySlugOrId(slug);
 
@@ -53,9 +51,10 @@ export default async function NoticeDetailPage({
   }
 
   const title =
-    locale === 'en' && notice.title_en ? notice.title_en : notice.title_bn;
+    locale === "en" && notice.title_en ? notice.title_en : notice.title_bn;
   const now = Date.now();
-  const isNew = now - new Date(notice.published_at).getTime() <= 7 * 24 * 60 * 60 * 1000;
+  const isNew =
+    now - new Date(notice.published_at).getTime() <= 7 * 24 * 60 * 60 * 1000;
 
   return (
     <div className="py-8 sm:py-12 bg-surface-50 min-h-screen">
@@ -79,14 +78,14 @@ export default async function NoticeDetailPage({
               {notice.is_pinned && (
                 <span className="inline-flex items-center gap-1 bg-amber-100 text-amber-900 px-3 py-1 rounded-full text-xs font-bold">
                   <Pin className="w-3.5 h-3.5 fill-amber-700" />
-                  {t('pinnedLabel')}
+                  {t("pinnedLabel")}
                 </span>
               )}
 
               {isNew && (
                 <span className="inline-flex items-center gap-1 bg-emerald-500 text-white px-3 py-1 rounded-full text-xs font-extrabold uppercase tracking-wide">
                   <Sparkles className="w-3.5 h-3.5" />
-                  {t('newBadge')}
+                  {t("newBadge")}
                 </span>
               )}
 
@@ -97,23 +96,26 @@ export default async function NoticeDetailPage({
               <span className="text-surface-500 text-xs sm:text-sm flex items-center gap-1.5 ml-auto">
                 <Calendar className="w-4 h-4 text-surface-400" />
                 {new Date(notice.published_at).toLocaleDateString(
-                  locale === 'bn' ? 'bn-IN' : 'en-US',
+                  locale === "bn" ? "bn-IN" : "en-US",
                   {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric',
-                  }
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  },
                 )}
               </span>
             </div>
 
-            <Heading level={1} className="text-2xl sm:text-3xl font-extrabold text-surface-900 leading-tight">
+            <Heading
+              level={1}
+              className="text-2xl sm:text-3xl font-extrabold text-surface-900 leading-tight"
+            >
               {title}
             </Heading>
           </div>
 
           {/* PDF Notice View */}
-          {notice.file_type === 'pdf' && notice.file_url && (
+          {notice.file_type === "pdf" && notice.file_url && (
             <div className="space-y-6">
               {/* PDF Action Bar (Download & Open) */}
               <div className="bg-red-50 border border-red-200 rounded-xl p-5 flex flex-col sm:flex-row items-center justify-between gap-4">
@@ -126,7 +128,11 @@ export default async function NoticeDetailPage({
                       Official PDF Document
                     </h3>
                     <p className="text-xs text-surface-600">
-                      File Size: {notice.file_size ? (notice.file_size / (1024 * 1024)).toFixed(2) : '0.00'} MB
+                      File Size:{" "}
+                      {notice.file_size
+                        ? (notice.file_size / (1024 * 1024)).toFixed(2)
+                        : "0.00"}{" "}
+                      MB
                     </p>
                   </div>
                 </div>
@@ -163,13 +169,14 @@ export default async function NoticeDetailPage({
 
               {/* Mobile Fallback Note */}
               <div className="md:hidden text-center text-xs text-surface-500 bg-surface-100 p-4 rounded-lg border border-surface-200">
-                Tap <strong>Open PDF</strong> or <strong>Download</strong> above to view this document on mobile devices.
+                Tap <strong>Open PDF</strong> or <strong>Download</strong> above
+                to view this document on mobile devices.
               </div>
             </div>
           )}
 
           {/* Text / .TXT Inline Notice View */}
-          {(notice.file_type === 'txt' || !notice.file_type) && (
+          {(notice.file_type === "txt" || !notice.file_type) && (
             <div className="space-y-6">
               {notice.body_bn && (
                 <div className="bg-surface-50 p-6 rounded-xl border border-surface-200">
