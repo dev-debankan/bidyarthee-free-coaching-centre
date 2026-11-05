@@ -8,6 +8,7 @@ const nextConfig: NextConfig = {
     serverActions: {
       bodySizeLimit: "5mb",
     },
+    turbopackPluginRuntimeStrategy: "workerThreads",
   },
   images: {
     formats: ["image/avif", "image/webp"],
