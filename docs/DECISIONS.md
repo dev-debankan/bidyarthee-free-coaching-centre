@@ -644,3 +644,26 @@ admin page after saving.
 
 - The UI reflects the committed database row immediately after the action returns.
 - Avoiding a full reload removes an extra request and page-render cycle.
+
+---
+
+## ADR-032: Vercel Production Deployment
+
+**Date:** 2026-11-05
+**Status:** Accepted
+
+**Context:** The site needed a production hosting project with the correct Next.js
+framework preset, Node.js runtime, and private/server-side environment variables.
+The initial deployment used Vercel's "Other" framework preset and produced a
+missing output-directory build failure.
+
+**Decision:** Use Vercel for production hosting, set the project framework preset to
+Next.js, use Node.js 22, and configure public and server-side variables across the
+production, preview, and development environments.
+
+**Rationale:**
+
+- The Next.js framework preset enables the correct build and server output handling.
+- Node.js 22 matches the supported runtime for the installed Next.js version.
+- Keeping database and service credentials in environment variables prevents them
+  from being committed to the repository.

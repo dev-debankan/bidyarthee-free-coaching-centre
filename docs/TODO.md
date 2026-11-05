@@ -190,9 +190,9 @@
 
 ## Phase 10 — Deploy
 
-- [ ] Set up Vercel project and connect Git repo
+- [x] Set up Vercel project and connect Git repo
   - **AC:** Push to `main` triggers production deploy
-- [ ] Configure environment variables on Vercel
+- [x] Configure environment variables on Vercel
   - **AC:** All `NEXT_PUBLIC_*` and server-side vars set in Vercel dashboard
 - [ ] Configure custom domain (if available)
   - **AC:** Site accessible at custom domain with HTTPS
